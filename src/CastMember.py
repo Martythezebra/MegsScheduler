@@ -1,26 +1,20 @@
 import tkinter
 
-
-import tkinter
-
 class CastMember:
-#
-# Begin definitions
-#
     def __init__(self, nameArg):
         # What order would meg like these to be in?
-        self.canMagenta = False
-        self.canRiff = False
-        self.canColombia = False
         self.canBrad = False
-        self.canJanet = False
+        self.canColombia = False
+        self.canCrew = False
+        self.canCrim = False
         self.canEddie = False
         self.canFrank = False
-        self.canScott = False
-        self.canRocky = False
-        self.canCrew = False
+        self.canJanet = False
         self.canLights = False
-        self.canCrim = False
+        self.canMagenta = False
+        self.canRiff = False
+        self.canRocky = False
+        self.canScott = False
         self.canTrixie = False
         
 
@@ -35,13 +29,44 @@ class CastMember:
         print("Placeholder")
 
 
-class CastBox:
 
-    def __init__(self, nameArg, theWindow):
-        self.member = CastMember(nameArg)
-        self.box = tkinter.Label(theWindow).grid()
-        tkinter.Checkbutton(self.box, text="Rocky", variable=self.member.canRocky).grid(row=0, sticky="W")
-        tkinter.Checkbutton(self.box, text="two", variable=self.member.canRocky).grid(row=1, sticky="W")
-        tkinter.Checkbutton(self.box, text="three", variable=self.member.canRocky).grid(row=2, sticky="W")
-        tkinter.Checkbutton(self.box, text="four", variable=self.member.canRocky).grid(row=3, sticky="W")
-        tkinter.Checkbutton(self.box, text="Rocky again", variable=self.member.canRocky).grid(row=4, sticky="W")
+    # print to console
+    def toString (self):
+        print("\t" + self.name + ":")
+        print("-------------------------")
+
+        dic = self.createRoleDictionary()
+
+        for key in dic:
+            if(len(key) >= 7):
+                print(key + ":\t" + str(dic[key]))
+            else:
+                print(key + ":\t\t" + str(dic[key]))
+
+        print("-------------------------")
+
+
+
+    # returns a dictionary containing all the boolean members of the class
+    def createRoleDictionary (self):
+
+        rolesMatrix = {}
+
+        rolesMatrix["Brad"] = self.canBrad
+        rolesMatrix["Colombia"] = self.canColombia
+        rolesMatrix["Crew"] = self.canCrew
+        rolesMatrix["Crim"] = self.canCrim
+        rolesMatrix["Eddie"] = self.canEddie
+        rolesMatrix["Frank"] = self.canFrank
+        rolesMatrix["Janet"] = self.canJanet
+        rolesMatrix["Lights"] = self.canLights
+        rolesMatrix["Magenta"] = self.canMagenta
+        rolesMatrix["Riff"] = self.canRiff
+        rolesMatrix["Rocky"] = self.canRocky
+        rolesMatrix["Scott"] = self.canScott
+        rolesMatrix["Trixie"] = self.canTrixie
+
+        return rolesMatrix
+
+    def getName(self):
+        return self.name
