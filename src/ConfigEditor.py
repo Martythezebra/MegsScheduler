@@ -12,7 +12,7 @@ class ConfigEditor:
     # generate a new CastMemberBox around a CastMember and add it to the display
     def addCastMember(self, castmemberArg):
         
-        window = CastMemberBox(castmemberArg)                       # pass cast member to be wrapped in tkinter window element
+        window = CastMemberBox(castmemberArg, self)                       # pass cast member to be wrapped in tkinter window element
 
         self.castMemberBoxList[castmemberArg.getName()] = window    # add returned cast member window to topLevelWindow's array
 
@@ -32,23 +32,27 @@ class ConfigEditor:
 
 
 class CastMemberBox:
-    def __init__(self, castMemberArg):
+    def __init__(self, castMemberArg, parent):
         self.myCastMember = castMemberArg
         self.myRoles = castMemberArg.createRoleDictionary()
-        self.myCheckboxes = CheckboxBlock()
+        self.myCheckboxes = CheckboxBlock(self)
+        self.myParent = parent
 
-    def createLabel(self, topLevel): # Takes in the parent frame as an argument
-        self.castMemberBoxWindow = tkinter.Frame(master=topLevel, relief=tkinter.RAISED, borderwidth=1)
-        self.nameWindow = tkinter.Label(master=self.castMemberBoxWindow, text=self.myCastMember.getName())
+    def createLabel(self, topLevel):
+        self.castMemberBoxWindow = tkinter.Frame(master=topLevel, relief=tkinter.RAISED, borderwidth=2)
+        self.nameWindow = tkinter.Label(master=self.castMemberBoxWindow, text=self.myCastMember.getName(), relief=tkinter.SUNKEN, borderwidth=2)
         self.nameWindow.grid(row=0, column=0)
         self.myCheckboxes.createRows(self.castMemberBoxWindow, self.myRoles)
 
 class CheckboxBlock:
-    def __init__(self):
+    def __init__(self, parent):
         self.checkboxList = {}
+        self.isCheckedList = {}
+        self.myParent = parent
 
     def createRows(self, topLevel, roleDictionary):
         for roleName in roleDictionary:
-            self.checkboxList[roleName] = tkinter.Checkbutton(master=topLevel, text=roleName, variable=roleDictionary[roleName])
+            self.isCheckedList[roleName] = tkinter.BooleanVar(master=topLevel, name=self.myParent.myCastMember.name + "_" + roleName, value=roleDictionary[roleName])
+            self.checkboxList[roleName] = tkinter.Checkbutton(master=topLevel, text=roleName, variable=self.isCheckedList[roleName])
             self.checkboxList[roleName].grid()
 

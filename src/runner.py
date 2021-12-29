@@ -5,6 +5,11 @@ myCfg = ConfigEditor.ConfigEditor()
 
 personA = CastMember.CastMember("Tim")
 
+personA.enableRole("Brad")
+personA.enableRole("Brad")
+personA.enableRole("Lights")
+personA.enableRole("Colombia")
+
 personB = CastMember.CastMember("Jane")
 
 personC = CastMember.CastMember("Gib")
