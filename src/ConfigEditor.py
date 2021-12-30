@@ -7,6 +7,7 @@ class ConfigEditor:
         self.topLevelWindow = tkinter.Tk()
         self.castMemberBoxList = {}
         self.castMemberFrame = tkinter.Frame()
+        self.myTopBar = TopBar()
         self.ROW_LENGTH = 3
 
     # generate a new CastMemberBox around a CastMember and add it to the display
@@ -17,6 +18,7 @@ class ConfigEditor:
         self.castMemberBoxList[castmemberArg.getName()] = window    # add returned cast member window to topLevelWindow's array
 
     def begin(self):
+        self.myTopBar.createButtons()
         self.castMemberFrame.grid(row=1)
         # TODO: pack in "save/file/edit" bar at row = 0, right above the grid of cast members
         entryNumber = 0
@@ -28,6 +30,26 @@ class ConfigEditor:
 
         self.topLevelWindow.mainloop()
 
+class TopBar:
+    def __init__(self):
+        self.bar = tkinter.Frame()
+    
+    def createButtons(self):
+        self.savebutton = tkinter.Button(master=self.bar, text="Save All", )
+        self.savebutton.bind("<ButtonRelease-1>", TopBar.saveButtonClicked)
+        self.savebutton.grid(row=0, column=0)
+
+        self.filebutton = tkinter.Button(master=self.bar, text="File (placeholder)")
+        self.filebutton.bind("<ButtonRelease-1>", TopBar.fileButtonClicked)
+        self.filebutton.grid(row=0, column=1)
+
+        self.bar.grid(row=0)
+
+    def saveButtonClicked(event):
+        print("yeetus")
+
+    def fileButtonClicked(event):
+        print("yimpus")
 
 
 

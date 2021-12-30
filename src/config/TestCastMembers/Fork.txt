@@ -1,0 +1,1 @@
+{"myRoleMatrix": {"Brad": false, "Colombia": false, "Crew": false, "Crim": false, "Eddie": false, "Frank": false, "Janet": false, "Lights": false, "Magenta": false, "Riff": false, "Rocky": false, "Scott": false, "Trixie": false}, "name": "Fork", "compatibilityList": {}, "incompatibilityList": {}}
