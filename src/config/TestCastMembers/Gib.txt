@@ -1,1 +1,18 @@
-{"myRoleMatrix": {"Brad": false, "Colombia": false, "Crew": false, "Crim": false, "Eddie": false, "Frank": false, "Janet": false, "Lights": false, "Magenta": false, "Riff": false, "Rocky": false, "Scott": false, "Trixie": false}, "name": "Gib", "compatibilityList": {}, "incompatibilityList": {}}
+{
+    "name": "Gib",
+    "roles": {
+        "Brad": false,
+        "Colombia": false,
+        "Crew": false,
+        "Crim": true,
+        "Eddie": false,
+        "Frank": true,
+        "Janet": false,
+        "Lights": false,
+        "Magenta": false,
+        "Riff": false,
+        "Rocky": false,
+        "Scott": false,
+        "Trixie": false
+    }
+}

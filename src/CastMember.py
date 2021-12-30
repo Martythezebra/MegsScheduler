@@ -1,4 +1,5 @@
 import tkinter
+import json
 
 class CastMember:
     def __init__(self, nameArg):
@@ -19,6 +20,22 @@ class CastMember:
             "Trixie": False,
         }
 
+        self.myTKBoolMatrix = {
+            "Brad": tkinter.BooleanVar(value=False),
+            "Colombia": tkinter.BooleanVar(value=False),
+            "Crew": tkinter.BooleanVar(value=False),
+            "Crim": tkinter.BooleanVar(value=False),
+            "Eddie": tkinter.BooleanVar(value=False),
+            "Frank": tkinter.BooleanVar(value=False),
+            "Janet": tkinter.BooleanVar(value=False),
+            "Lights": tkinter.BooleanVar(value=False),
+            "Magenta": tkinter.BooleanVar(value=False),
+            "Riff": tkinter.BooleanVar(value=False),
+            "Rocky": tkinter.BooleanVar(value=False),
+            "Scott": tkinter.BooleanVar(value=False),
+            "Trixie": tkinter.BooleanVar(value=False),
+        }
+
         self.name = nameArg
 
         self.compatibilityList = {}
@@ -26,10 +43,22 @@ class CastMember:
         self.incompatibilityList = {}
 
     # This method is to initialize a CastMember's Attributes from a pre-configured config file
-    def configure (self, file):
-        print("Placeholder")
+    def configure (self, loadableCastMemberObject):
+        self.myRoleMatrix = loadableCastMemberObject.myRoleMatrix
+        self.name = loadableCastMemberObject.name
+        
+        for roleVar in self.myTKBoolMatrix:
+            self.myTKBoolMatrix[roleVar].set(self.myRoleMatrix[roleVar])
+        print("configured " + self.name)
 
 
+    # copied from https://pynative.com/make-python-class-json-serializable/
+    def toJson(self):
+        myString = json.dumps(self.myRoleMatrix, indent=4)
+        return myString
+
+    def getName(self) -> str:
+        return self.name
 
     # print to console
     def toString (self):

@@ -1,0 +1,21 @@
+Create basic "lexical grammar" - the rules for which the individual values in the config file resolve into weights for display on the scheduler
+
+Create "cast member" object that can be saved as a "config file"
+
+create parser to recursively parse config file
+
+visually show all of the options for a given role
+
+:narrow  down:
+
+
+Done:
+	Implement configuring and saving of castMembers as config files
+	Implement loading cast members from config files
+TODO:
+
+2. Implement a "dashboard" of all cast members available for each role
+
+3. Implement weighting functions to control the ordering on the dashboard
+
+

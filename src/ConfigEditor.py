@@ -1,5 +1,8 @@
 import tkinter
+from tkinter.constants import FALSE, TRUE
 import CastMember
+import ConfigFileHandler
+import functools
 
 
 class ConfigEditor:
@@ -7,7 +10,9 @@ class ConfigEditor:
         self.topLevelWindow = tkinter.Tk()
         self.castMemberBoxList = {}
         self.castMemberFrame = tkinter.Frame()
-        self.myTopBar = TopBar()
+        self.myTopBar = TopBar(self)
+        self.myFileWriter = ConfigFileHandler.configSaver(".\config\TestCastMembers\\")
+        self.myConfigLoader = ConfigFileHandler.castMemberLoader(".\config\TestCastMembers\\")
         self.ROW_LENGTH = 3
 
     # generate a new CastMemberBox around a CastMember and add it to the display
@@ -30,26 +35,44 @@ class ConfigEditor:
 
         self.topLevelWindow.mainloop()
 
+    def saveAllButtonClicked(self, event):
+        print("Save clicked")
+
+        indexNameList = []
+
+        for memberBoxKey in self.castMemberBoxList:
+            castMember = self.castMemberBoxList[memberBoxKey].myCastMember
+            print("Member name is " + castMember.name)
+            self.myFileWriter.saveToFile(castMember, castMember.name)
+            indexNameList.append(memberBoxKey)
+
+        self.myFileWriter.saveIndexList(indexNameList)
+    
+    def loadAllButtonClicked(self, event):
+        print("Load clicked")
+
+        castMembersToLoad = self.myConfigLoader.loadAllFromIndex()
+
+        for castMember in castMembersToLoad:
+            self.addCastMember(castMembersToLoad[castMember])
+
+        self.begin()
+
 class TopBar:
-    def __init__(self):
+    def __init__(self, parent):
         self.bar = tkinter.Frame()
+        self.parent = parent
     
     def createButtons(self):
-        self.savebutton = tkinter.Button(master=self.bar, text="Save All", )
-        self.savebutton.bind("<ButtonRelease-1>", TopBar.saveButtonClicked)
+        self.savebutton = tkinter.Button(master=self.bar, text="Save All")
+        self.savebutton.bind("<ButtonRelease-1>", self.parent.saveAllButtonClicked)
         self.savebutton.grid(row=0, column=0)
 
         self.filebutton = tkinter.Button(master=self.bar, text="File (placeholder)")
-        self.filebutton.bind("<ButtonRelease-1>", TopBar.fileButtonClicked)
+        self.filebutton.bind("<ButtonRelease-1>", self.parent.loadAllButtonClicked)
         self.filebutton.grid(row=0, column=1)
 
         self.bar.grid(row=0)
-
-    def saveButtonClicked(event):
-        print("yeetus")
-
-    def fileButtonClicked(event):
-        print("yimpus")
 
 
 
@@ -64,17 +87,33 @@ class CastMemberBox:
         self.castMemberBoxWindow = tkinter.Frame(master=topLevel, relief=tkinter.RAISED, borderwidth=2)
         self.nameWindow = tkinter.Label(master=self.castMemberBoxWindow, text=self.myCastMember.getName(), relief=tkinter.SUNKEN, borderwidth=2)
         self.nameWindow.grid(row=0, column=0)
-        self.myCheckboxes.createRows(self.castMemberBoxWindow, self.myRoles)
+        self.myCheckboxes.createRows(self.castMemberBoxWindow, self.myCastMember.myRoleMatrix)
+        self.updateBoolsOnStart()
+    
+    def updateBoolsOnClick(self, roleKey):
+        print("checkbox clicked: " + self.myCastMember.name + " " + roleKey + ". Value updated to " + str(self.myCastMember.myTKBoolMatrix[roleKey].get()))
+        
+        boolVal = self.myCastMember.myTKBoolMatrix[roleKey].get()
+        boolVal = boolVal
+        self.myCastMember.myRoleMatrix[roleKey] = boolVal
+
+    def updateBoolsOnStart(self):
+        for roleKey in self.myCastMember.myRoleMatrix:
+            self.myCastMember.myRoleMatrix[roleKey] = self.myCastMember.myTKBoolMatrix[roleKey].get()   
+            print("Initialized: " + self.myCastMember.name + " " + roleKey + ". Value updated to " + str(self.myCastMember.myRoleMatrix[roleKey]))
+
+
+
 
 class CheckboxBlock:
     def __init__(self, parent):
         self.checkboxList = {}
-        self.isCheckedList = {}
         self.myParent = parent
 
     def createRows(self, topLevel, roleDictionary):
         for roleName in roleDictionary:
-            self.isCheckedList[roleName] = tkinter.BooleanVar(master=topLevel, name=self.myParent.myCastMember.name + "_" + roleName, value=roleDictionary[roleName])
-            self.checkboxList[roleName] = tkinter.Checkbutton(master=topLevel, text=roleName, variable=self.isCheckedList[roleName])
+            # https://www.delftstack.com/howto/python-tkinter/how-to-pass-arguments-to-tkinter-button-command/
+            # See the above for checkbox command help, regarding "partials"
+            self.checkboxList[roleName] = tkinter.Checkbutton(master=topLevel, text=roleName, name="a" + roleName, variable=self.myParent.myCastMember.myTKBoolMatrix[roleName], offvalue=FALSE, onvalue=TRUE, command=functools.partial(self.myParent.updateBoolsOnClick, roleName))
             self.checkboxList[roleName].grid()
 

@@ -10,7 +10,6 @@ people = {}
 people["A"] = CastMember.CastMember("Tim")
 
 people["A"].enableRole("Brad")
-people["A"].enableRole("Brad")
 people["A"].enableRole("Lights")
 people["A"].enableRole("Colombia")
 

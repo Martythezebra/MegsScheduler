@@ -1,21 +1,71 @@
 import json
+import LoadableCastMember
+import CastMember
 
 class configSaver:
-    def __init__(self):
+    def __init__(self, filePath):
         self.myFiles = {}
+        self.myFilePath = filePath
 
-    def openFile(self, fileName):
-        if fileName not in self.myFiles:
-            self.myFiles[fileName] = open(file=".\config\TestCastMembers\\" + fileName + ".txt", mode="w")
+    def saveToFile(self, castMember, filename):
+        simplifiedObject = {
+            "name": castMember.name,
+            "roles": castMember.myRoleMatrix
+        }
 
-        return self.myFiles[fileName]
+        objString = json.dumps(simplifiedObject, indent=4)
 
-    def closeFile(self, currentOpenFile):
-        pass
+        theFile = open(file=self.myFilePath + filename + ".txt", mode="w")
+        theFile.seek(0)
+        theFile.write(objString)
+        theFile.truncate()
+        theFile.close()
 
-    def saveToFile(self, object, filename):
-        objString = json.dumps(object.__dict__)
+    def saveIndexList(self, list) -> None:
+        indexFile = open(self.myFilePath + "index\index.txt", "w")
 
-        self.openFile(filename)
-        
-        self.myFiles[filename].write(objString)
+        listJson = json.dumps(list)
+        indexFile.seek(0)
+        indexFile.write(listJson)
+        indexFile.truncate()
+        indexFile.close()
+
+class castMemberLoader:
+    def __init__(self, filePath) -> None:
+        self.myFilePath = filePath
+
+    def loadCastMember(self, filename) -> LoadableCastMember:
+        returnedCastMember = LoadableCastMember.LoadableCastMember(filename)
+
+        theFile = open(file=self.myFilePath + filename + ".txt", mode="r")
+        fileContents = theFile.read()
+        theFile.close()
+        fileObject = json.loads(fileContents)
+
+        returnedCastMember.name = fileObject["name"]
+        returnedCastMember.myRoleMatrix = fileObject["roles"]
+
+        return returnedCastMember
+
+    def loadAllFromIndex(self):
+        indexFile = open(self.myFilePath + "index\index.txt", "r")
+        indexString = indexFile.read()
+        indexObject = json.loads(indexString)
+
+        loadedMembers = {}
+        returnedMembers = {}
+
+        for name in indexObject:
+            loadedMembers[name] = self.loadCastMember(name)
+
+        for name in loadedMembers:
+            tempMember = CastMember.CastMember("placeholder")
+            tempMember.configure(loadedMembers[name])
+            print("successfully loaded cast member:\n")
+            tempMember.toString()
+            returnedMembers[name] = tempMember
+
+        return returnedMembers
+
+
+
