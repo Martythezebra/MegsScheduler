@@ -1,0 +1,18 @@
+{
+    "name": "Bri",
+    "roles": {
+        "Brad": false,
+        "Colombia": true,
+        "Crew": true,
+        "Crim": false,
+        "Eddie": false,
+        "Frank": false,
+        "Janet": false,
+        "Lights": false,
+        "Magenta": false,
+        "Riff": false,
+        "Rocky": false,
+        "Scott": false,
+        "Trixie": true
+    }
+}

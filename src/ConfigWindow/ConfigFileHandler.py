@@ -37,7 +37,18 @@ class castMemberLoader:
     def loadCastMember(self, filename) -> LoadableCastMember:
         returnedCastMember = LoadableCastMember.LoadableCastMember(filename)
 
-        theFile = open(file=self.myFilePath + filename + ".txt", mode="r")
+        # Create the file if it does not exist
+        theFile = None
+        try:
+            theFile = open(file=self.myFilePath + filename + ".txt", mode="r")
+        except FileNotFoundError:
+            defaultCastMember = CastMember.CastMember(filename)
+            print("Error!")
+            saver = configSaver(filePath=self.myFilePath)
+            saver.saveToFile(defaultCastMember, filename)
+            theFile = open(file=self.myFilePath + filename + ".txt", mode="r")
+
+
         fileContents = theFile.read()
         theFile.close()
         fileObject = json.loads(fileContents)
@@ -50,10 +61,11 @@ class castMemberLoader:
     def loadAllFromIndex(self):
         indexFile = open(self.myFilePath + "index\index.txt", "r")
         indexString = indexFile.read()
+        print("Index loaded successfully : " + str(indexString))
         indexObject = json.loads(indexString)
 
-        loadedMembers = {}
-        returnedMembers = {}
+        loadedMembers = {} # LoadableCastMember()
+        returnedMembers = {} # CastMember()
 
         for name in indexObject:
             loadedMembers[name] = self.loadCastMember(name)

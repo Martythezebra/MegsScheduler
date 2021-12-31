@@ -1,0 +1,18 @@
+{
+    "name": "Marty",
+    "roles": {
+        "Brad": false,
+        "Colombia": false,
+        "Crew": true,
+        "Crim": false,
+        "Eddie": false,
+        "Frank": false,
+        "Janet": false,
+        "Lights": true,
+        "Magenta": false,
+        "Riff": false,
+        "Rocky": true,
+        "Scott": false,
+        "Trixie": false
+    }
+}

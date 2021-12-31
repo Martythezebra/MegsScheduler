@@ -1,0 +1,18 @@
+{
+    "name": "Nick",
+    "roles": {
+        "Brad": true,
+        "Colombia": false,
+        "Crew": true,
+        "Crim": false,
+        "Eddie": false,
+        "Frank": false,
+        "Janet": false,
+        "Lights": false,
+        "Magenta": true,
+        "Riff": false,
+        "Rocky": false,
+        "Scott": false,
+        "Trixie": false
+    }
+}

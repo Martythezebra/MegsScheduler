@@ -13,7 +13,7 @@ class ConfigEditor:
         self.myTopBar = TopBar(self)
         self.myFileWriter = ConfigFileHandler.configSaver(".\config\TestCastMembers\\")
         self.myConfigLoader = ConfigFileHandler.castMemberLoader(".\config\TestCastMembers\\")
-        self.ROW_LENGTH = 3
+        self.ROW_LENGTH = 8
 
     # generate a new CastMemberBox around a CastMember and add it to the display
     def addCastMember(self, castmemberArg):
