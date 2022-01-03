@@ -1,7 +1,7 @@
 {
     "name": "Marty",
     "roles": {
-        "Brad": false,
+        "Brad": true,
         "Colombia": false,
         "Crew": true,
         "Crim": false,

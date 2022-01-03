@@ -11,8 +11,8 @@ class ConfigEditor:
         self.castMemberBoxList = {}
         self.castMemberFrame = tkinter.Frame()
         self.myTopBar = TopBar(self)
-        self.myFileWriter = ConfigFileHandler.configSaver(".\config\TestCastMembers\\")
-        self.myConfigLoader = ConfigFileHandler.castMemberLoader(".\config\TestCastMembers\\")
+        self.myFileWriter = ConfigFileHandler.configSaver("./config/TestCastMembers/")
+        self.myConfigLoader = ConfigFileHandler.castMemberLoader("./config/TestCastMembers/")
         self.ROW_LENGTH = 8
 
     # generate a new CastMemberBox around a CastMember and add it to the display
@@ -86,7 +86,7 @@ class CastMemberBox:
     def createLabel(self, topLevel):
         self.castMemberBoxWindow = tkinter.Frame(master=topLevel, relief=tkinter.RAISED, borderwidth=2)
         self.nameWindow = tkinter.Label(master=self.castMemberBoxWindow, text=self.myCastMember.getName(), relief=tkinter.SUNKEN, borderwidth=2)
-        self.nameWindow.grid(row=0, column=0)
+        self.nameWindow.grid(row=0, column=0, sticky='w')
         self.myCheckboxes.createRows(self.castMemberBoxWindow, self.myCastMember.myRoleMatrix)
         self.updateBoolsOnStart()
     
@@ -115,5 +115,5 @@ class CheckboxBlock:
             # https://www.delftstack.com/howto/python-tkinter/how-to-pass-arguments-to-tkinter-button-command/
             # See the above for checkbox command help, regarding "partials"
             self.checkboxList[roleName] = tkinter.Checkbutton(master=topLevel, text=roleName, name="a" + roleName, variable=self.myParent.myCastMember.myTKBoolMatrix[roleName], offvalue=FALSE, onvalue=TRUE, command=functools.partial(self.myParent.updateBoolsOnClick, roleName))
-            self.checkboxList[roleName].grid()
+            self.checkboxList[roleName].grid(sticky='w')
 

@@ -22,7 +22,7 @@ class configSaver:
         theFile.close()
 
     def saveIndexList(self, list) -> None:
-        indexFile = open(self.myFilePath + "index\index.txt", "w")
+        indexFile = open(self.myFilePath + "index/index.txt", "w")
 
         listJson = json.dumps(list)
         indexFile.seek(0)
@@ -59,7 +59,7 @@ class castMemberLoader:
         return returnedCastMember
 
     def loadAllFromIndex(self):
-        indexFile = open(self.myFilePath + "index\index.txt", "r")
+        indexFile = open(self.myFilePath + "index/index.txt", "r")
         indexString = indexFile.read()
         print("Index loaded successfully : " + str(indexString))
         indexObject = json.loads(indexString)
