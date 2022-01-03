@@ -9,11 +9,11 @@ class ConfigEditor:
     def __init__(self):
         self.topLevelWindow = tkinter.Tk()
         self.castMemberBoxList = {}
-        self.castMemberFrame = tkinter.Frame()
+        self.castMemberFrame = tkinter.Frame(width=1200, height=680)
         self.myTopBar = TopBar(self)
         self.myFileWriter = ConfigFileHandler.configSaver("./config/TestCastMembers/")
         self.myConfigLoader = ConfigFileHandler.castMemberLoader("./config/TestCastMembers/")
-        self.ROW_LENGTH = 8
+        self.ROW_LENGTH = 10
 
     # generate a new CastMemberBox around a CastMember and add it to the display
     def addCastMember(self, castmemberArg):
@@ -33,6 +33,7 @@ class ConfigEditor:
             self.castMemberBoxList[member].castMemberBoxWindow.grid(column=entryNumber % self.ROW_LENGTH, row = entryNumber // self.ROW_LENGTH)
             entryNumber += 1
 
+        self.topLevelWindow.call('wm', 'attributes', '.', '-topmost', '1')
         self.topLevelWindow.mainloop()
 
     def saveAllButtonClicked(self, event):
@@ -68,7 +69,7 @@ class TopBar:
         self.savebutton.bind("<ButtonRelease-1>", self.parent.saveAllButtonClicked)
         self.savebutton.grid(row=0, column=0)
 
-        self.filebutton = tkinter.Button(master=self.bar, text="File (placeholder)")
+        self.filebutton = tkinter.Button(master=self.bar, text="Load")
         self.filebutton.bind("<ButtonRelease-1>", self.parent.loadAllButtonClicked)
         self.filebutton.grid(row=0, column=1)
 
