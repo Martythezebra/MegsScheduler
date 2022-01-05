@@ -1,14 +1,14 @@
 {
-    "name": "Jon",
+    "name": "Jacob",
     "roles": {
         "Brad": true,
         "Colombia": true,
-        "Crew": false,
-        "Crim": false,
+        "Crew": true,
+        "Crim": true,
         "Eddie": false,
         "Frank": true,
         "Janet": true,
-        "Lights": false,
+        "Lights": true,
         "Magenta": true,
         "Riff": true,
         "Rocky": true,

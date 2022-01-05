@@ -23,6 +23,7 @@ class ConfigEditor:
         self.castMemberBoxList[castmemberArg.getName()] = window    # add returned cast member window to topLevelWindow's array
 
     def begin(self):
+        self.loadAtBeginning()
         self.myTopBar.createButtons()
         self.castMemberFrame.grid(row=1)
         # TODO: pack in "save/file/edit" bar at row = 0, right above the grid of cast members
@@ -33,23 +34,21 @@ class ConfigEditor:
             self.castMemberBoxList[member].castMemberBoxWindow.grid(column=entryNumber % self.ROW_LENGTH, row = entryNumber // self.ROW_LENGTH)
             entryNumber += 1
 
-        self.topLevelWindow.mainloop()
-
     def saveAllButtonClicked(self, event):
-        print("Save clicked")
+        #print("Save clicked")
 
         indexNameList = []
 
         for memberBoxKey in self.castMemberBoxList:
             castMember = self.castMemberBoxList[memberBoxKey].myCastMember
-            print("Member name is " + castMember.name)
+            #print("Member name is " + castMember.name)
             self.myFileWriter.saveToFile(castMember, castMember.name)
             indexNameList.append(memberBoxKey)
 
         self.myFileWriter.saveIndexList(indexNameList)
     
     def loadAllButtonClicked(self, event):
-        print("Load clicked")
+        #print("Load clicked")
 
         castMembersToLoad = self.myConfigLoader.loadAllFromIndex()
 
@@ -57,6 +56,13 @@ class ConfigEditor:
             self.addCastMember(castMembersToLoad[castMember])
 
         self.begin()
+
+    def loadAtBeginning(self): # same as loadAllButton but doesnt call begin()
+        #print("loading initially")
+        castMembersToLoad = self.myConfigLoader.loadAllFromIndex()
+
+        for castMember in castMembersToLoad:
+            self.addCastMember(castMembersToLoad[castMember])
 
 class TopBar:
     def __init__(self, parent):
@@ -91,7 +97,7 @@ class CastMemberBox:
         self.updateBoolsOnStart()
     
     def updateBoolsOnClick(self, roleKey):
-        print("checkbox clicked: " + self.myCastMember.name + " " + roleKey + ". Value updated to " + str(self.myCastMember.myTKBoolMatrix[roleKey].get()))
+        #print("checkbox clicked: " + self.myCastMember.name + " " + roleKey + ". Value updated to " + str(self.myCastMember.myTKBoolMatrix[roleKey].get()))
         
         boolVal = self.myCastMember.myTKBoolMatrix[roleKey].get()
         boolVal = boolVal
@@ -100,10 +106,7 @@ class CastMemberBox:
     def updateBoolsOnStart(self):
         for roleKey in self.myCastMember.myRoleMatrix:
             self.myCastMember.myRoleMatrix[roleKey] = self.myCastMember.myTKBoolMatrix[roleKey].get()   
-            print("Initialized: " + self.myCastMember.name + " " + roleKey + ". Value updated to " + str(self.myCastMember.myRoleMatrix[roleKey]))
-
-
-
+            #print("Initialized: " + self.myCastMember.name + " " + roleKey + ". Value updated to " + str(self.myCastMember.myRoleMatrix[roleKey]))
 
 class CheckboxBlock:
     def __init__(self, parent):

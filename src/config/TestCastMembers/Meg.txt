@@ -1,18 +1,18 @@
 {
-    "name": "Jacob",
+    "name": "Meg",
     "roles": {
         "Brad": false,
         "Colombia": false,
         "Crew": true,
         "Crim": false,
-        "Eddie": true,
+        "Eddie": false,
         "Frank": false,
-        "Janet": false,
+        "Janet": true,
         "Lights": true,
         "Magenta": false,
         "Riff": false,
         "Rocky": false,
-        "Scott": true,
+        "Scott": false,
         "Trixie": false
     }
 }

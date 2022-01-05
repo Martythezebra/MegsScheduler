@@ -6,7 +6,7 @@
         "Crew": false,
         "Crim": false,
         "Eddie": false,
-        "Frank": true,
+        "Frank": false,
         "Janet": true,
         "Lights": false,
         "Magenta": true,

@@ -1,5 +1,5 @@
 {
-    "name": "Meg",
+    "name": "Adam",
     "roles": {
         "Brad": false,
         "Colombia": false,
@@ -7,12 +7,12 @@
         "Crim": false,
         "Eddie": false,
         "Frank": false,
-        "Janet": true,
-        "Lights": true,
-        "Magenta": true,
-        "Riff": false,
+        "Janet": false,
+        "Lights": false,
+        "Magenta": false,
+        "Riff": true,
         "Rocky": false,
-        "Scott": false,
+        "Scott": true,
         "Trixie": false
     }
 }

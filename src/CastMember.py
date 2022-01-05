@@ -88,3 +88,11 @@ class CastMember:
 
     def getName(self):
         return self.name
+
+    def outputRoleList(self):
+        output = []
+        for roleName in self.myRoleMatrix:
+            if self.myRoleMatrix[roleName]:
+                output.append(roleName)
+        
+        return output
